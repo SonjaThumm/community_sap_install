@@ -11,7 +11,7 @@ sap_install_media_detect_webdisp: false
 sap_install_media_detect_db: "saphana"
 
 # Product ID for New Installation
-sap_swpm_product_catalog_id: NW_ABAP_OneHost:S4HANA2023.CORE.HDB.ABAP
+sap_swpm_product_catalog_id: 
 
 # Generate inifile.params using sap_swpm Ansible Role
 sap_swpm_inifile_list:
@@ -28,31 +28,31 @@ sap_swpm_inifile_list:
   - sap_os_linux_user
 
 # Software
-sap_swpm_software_path: /swdepot/S4HANA2023/
-sap_swpm_sapcar_path: /swdepot/S4HANA2023/
-sap_swpm_swpm_path: /swdepot/S4HANA2023/
-sap_swpm_sapinst_path: /swdepot/S4HANA2023/SWPM
+sap_swpm_software_path: 
+sap_swpm_sapcar_path: 
+sap_swpm_swpm_path: 
+sap_swpm_sapinst_path: 
 
 # NW Passwords
-sap_swpm_master_password: "HPinvent123"
-sap_swpm_ddic_000_password: "HPinvent123"
+sap_swpm_master_password: 
+sap_swpm_ddic_000_password: "{{ sap_swpm_master_password }}"
 
 # HDB Passwords
-sap_swpm_db_system_password: "HPinvent1"
-sap_swpm_db_systemdb_password: "HPinvent1"
+sap_swpm_db_system_password: 
+sap_swpm_db_systemdb_password: "{{ sap_swpm_db_system_password }}"
 sap_swpm_db_schema_abap: "SAPHANADB"
-sap_swpm_db_schema_abap_password: "HPinvent1"
-sap_swpm_db_sidadm_password: "HPinvent12"
+sap_swpm_db_schema_abap_password: "{{ sap_swpm_db_system_password }}"
+sap_swpm_db_sidadm_password: "{{ sap_swpm_db_system_password }}"
   
 # NW Instance Parameters
-sap_swpm_sid: S4H
-sap_swpm_pas_instance_nr: "01"
-sap_swpm_ascs_instance_nr: "02"
+sap_swpm_sid: 
+sap_swpm_pas_instance_nr:
+sap_swpm_ascs_instance_nr:
 sap_swpm_ascs_instance_hostname: "{{ ansible_hostname }}"
-sap_swpm_fqdn: "devnet.hpe"
+sap_swpm_fqdn: "{{ ansible_fqdn }}"
 
 # HDB Instance Parameters
 # For dual host installation, change the db_host to appropriate value
 sap_swpm_db_host: "{{ ansible_hostname }}"
-sap_swpm_db_sid: HD1
-sap_swpm_db_instance_nr: "00"
+sap_swpm_db_sid: 
+sap_swpm_db_instance_nr: 
