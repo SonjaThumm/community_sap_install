@@ -5,5 +5,7 @@
   pre_tasks:
     - name: Include variables
       ansible.builtin.include_vars: ./vars/variables-sap-hana-install.yml
+    - debug:
+        msg: "sap_install_media_detect_source_directory: {{ sap_install_media_detect_source_directory }"
   roles:
     - { role: ../roles/sap_hana_install }
