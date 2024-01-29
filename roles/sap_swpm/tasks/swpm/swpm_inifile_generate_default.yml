@@ -1,8 +1,4 @@
 ---
-- debug:
-    msg: "SWPM: {{ sap_swpm_sapinst_path }}\n HANA system PW: {{sap_swpm_db_system_password}} \n SWPM master PW {{sap_swpm_master_password }} \n 
-        sap_install_media_detect_source_directory: {{ sap_install_media_detect_source_directory}} \n CAtalog ID: {{ sap_swpm_product_catalog_id }} \n SAP APP SID: {{sap_swpm_sid}}\n ASCS {{ sap_swpm_ascs_instance_nr }} \n 
-        HANA Host {{ sap_swpm_db_host}}\ \n pas instance number {{ sap_swpm_pas_instance_nr}} \n SAP HANA SID {{ sap_hana_install_sid }} \n SAP HANA Nr {{ sap_swpm_db_instance_nr }} \n "
 # Determine Installation Type
 - name: SAP SWPM default mode - Determine Installation Type
   ansible.builtin.include_tasks:
@@ -10,10 +6,6 @@
     apply:
       tags: sap_swpm_generate_inifile
   tags: sap_swpm_generate_inifile
-- debug:
-    msg: "SWPM: {{ sap_swpm_sapinst_path }}\n HANA system PW: {{sap_swpm_db_system_password}} \n SWPM master PW {{sap_swpm_master_password }} \n 
-        sap_install_media_detect_source_directory: {{ sap_install_media_detect_source_directory}} \n CAtalog ID: {{ sap_swpm_product_catalog_id }} \n SAP APP SID: {{sap_swpm_sid}}\n ASCS {{ sap_swpm_ascs_instance_nr }} \n 
-        HANA Host {{ sap_swpm_db_host}}\ \n pas instance number {{ sap_swpm_pas_instance_nr}} \n SAP HANA SID {{ sap_hana_install_sid }} \n SAP HANA Nr {{ sap_swpm_db_instance_nr }} \n "
 # Password Facts
 - name: SAP SWPM default mode - Password Facts
   ansible.builtin.include_tasks:
