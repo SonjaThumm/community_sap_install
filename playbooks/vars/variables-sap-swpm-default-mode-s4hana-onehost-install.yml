@@ -1,7 +1,7 @@
 ---
 
 # Detect SAP HANA and SAP NetWeaver software
-sap_install_media_detect_source_directory:
+#sap_install_media_detect_source_directory:
 sap_install_media_detect_source: local_dir
 sap_install_media_detect_swpm: true
 sap_install_media_detect_hostagent: true
@@ -11,7 +11,7 @@ sap_install_media_detect_webdisp: false
 sap_install_media_detect_db: "saphana"
 
 # Product ID for New Installation
-sap_swpm_product_catalog_id: 
+#sap_swpm_product_catalog_id: 
 
 # Generate inifile.params using sap_swpm Ansible Role
 sap_swpm_inifile_list:
@@ -28,31 +28,31 @@ sap_swpm_inifile_list:
   - sap_os_linux_user
 
 # Software
-sap_swpm_software_path: 
-sap_swpm_sapcar_path: 
-sap_swpm_swpm_path: 
-sap_swpm_sapinst_path: 
+#sap_swpm_software_path: 
+#sap_swpm_sapcar_path: 
+#sap_swpm_swpm_path: 
+#sap_swpm_sapinst_path: 
 
 # NW Passwords
-sap_swpm_master_password: 
+#sap_swpm_master_password: 
 sap_swpm_ddic_000_password: "{{ sap_swpm_master_password }}"
 
 # HDB Passwords
-sap_swpm_db_system_password: 
+#sap_swpm_db_system_password: 
 sap_swpm_db_systemdb_password: "{{ sap_swpm_db_system_password }}"
 sap_swpm_db_schema_abap: "SAPHANADB"
 sap_swpm_db_schema_abap_password: "{{ sap_swpm_db_system_password }}"
 sap_swpm_db_sidadm_password: "{{ sap_swpm_db_system_password }}"
   
 # NW Instance Parameters
-sap_swpm_sid: 
-sap_swpm_pas_instance_nr:
-sap_swpm_ascs_instance_nr:
+#sap_swpm_sid: 
+#sap_swpm_pas_instance_nr:
+#sap_swpm_ascs_instance_nr:
 sap_swpm_ascs_instance_hostname: "{{ ansible_hostname }}"
 sap_swpm_fqdn: "{{ ansible_fqdn }}"
 
 # HDB Instance Parameters
 # For dual host installation, change the db_host to appropriate value
-sap_swpm_db_host: "{{ ansible_hostname }}"
-sap_swpm_db_sid: 
-sap_swpm_db_instance_nr: 
+#sap_swpm_db_host: "{{ ansible_hostname }}"
+#sap_swpm_db_sid: 
+#sap_swpm_db_instance_nr: 
