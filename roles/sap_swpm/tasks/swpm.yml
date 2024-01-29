@@ -23,18 +23,18 @@
 ### Async method
 
 # Required for Ansible Module pids
-- name: Install Python devel and gcc to system Python
-  ansible.builtin.package:
-    name:
-      - python3-devel
-      - gcc
-    state: present
+#- name: Install Python devel and gcc to system Python
+#  ansible.builtin.package:
+#    name:
+#      - python3-devel
+#      - gcc
+#    state: present
 
 # Required for Ansible Module pids
-- name: Install Python dependency psutil to system Python
-  ansible.builtin.pip:
-    name:
-      - psutil
+#- name: Install Python dependency psutil to system Python
+#  ansible.builtin.pip:
+#    name:
+#      - psutil
 #    executable: pip3.6
 
 - name: Set fact for the sapinst command line
