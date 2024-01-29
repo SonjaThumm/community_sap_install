@@ -6,7 +6,7 @@
 
 # Software Path
 - debug: SWPM path
-    msg: "SWPM path: { sap_swpm_software_path }}"
+    msg: "SWPM path: {{ sap_swpm_software_path }}"
 - name: SAP SWPM Pre Install - Check availability of software path - {{ sap_swpm_software_path }}
   ansible.builtin.stat:
     path: "{{ sap_swpm_software_path }}"
