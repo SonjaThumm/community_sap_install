@@ -28,7 +28,10 @@
           #      ansible.builtin.include_role:
         #        name: { role: community.sap_install.sap_install_media_detect }
         #        name: { role: sap_install_media_detect }
-
+    - debug:
+        msg: "SWPM: {{ sap_swpm_sapinst_path }}\n HANA system PW: {{sap_swpm_db_system_password}} \n SWPM master PW {{sap_swpm_master_password }} \n 
+        sap_install_media_detect_source_directory: {{ sap_install_media_detect_source_directory}} \n CAtalog ID: {{ sap_swpm_product_catalog_id }} \n SAP APP SID: {{sap_swpm_sid}}\n ASCS {{ sap_swpm_ascs_instance_nr }} \n 
+        HANA Host {{ sap_swpm_db_host}}\ \n pas instance number {{ sap_swpm_pas_instance_nr}} \n SAP HANA SID {{ sap_hana_install_sid }} \n SAP HANA Nr {{ sap_swpm_db_instance_nr }} \n "
     - name: Execute Ansible Role sap_swpm
       ansible.builtin.include_role:
         name: { role: sap_swpm }
