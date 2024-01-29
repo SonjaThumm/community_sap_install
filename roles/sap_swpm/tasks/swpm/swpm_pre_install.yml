@@ -30,6 +30,9 @@
     msg: "{{ sap_swpm_tmpdir.path }}/inifile.params"
   tags: sap_swpm_generate_inifile
 
+- debug:
+    msg: "SWPM Path: {{ sap_swpm_sapinst_path }}"
+
 # Set fact for SWPM path
 #- name: SAP SWPM Pre Install - Set fact for SWPM path
 #  ansible.builtin.set_fact:
