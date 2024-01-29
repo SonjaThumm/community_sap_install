@@ -1,0 +1,16 @@
+---
+# Ansible Playbook for testing parameter input
+- name: Ansible Play for executing SAP SWPM to all hosts in Ansible Inventory
+  hosts: all
+  become: true
+
+  vars:
+    sap_swpm_ansible_role_mode: default
+
+  tasks:
+    - name: Import variables for sap_swpm Ansible Role (Default Mode)
+      ansible.builtin.include_vars:
+        file: ./variables-sap-swpm-default-mode-s4hana-onehost-install.yml
+
+    - debug:
+        msg: "SWPM: {{ sap_swpm_sapinst_path }}"
