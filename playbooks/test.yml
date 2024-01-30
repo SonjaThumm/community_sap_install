@@ -8,11 +8,20 @@
     sap_swpm_ansible_role_mode: default
 
   tasks:
-    - name: Import variables for sap_swpm Ansible Role (Default Mode)
-      ansible.builtin.include_vars:
-        file: ./variables-sap-swpm-default-mode-s4hana-onehost-install.yml
+  - name: SAP SWPM - Correct /etc/hosts entry for 127.0.0.1
+    lineinfile:
+      path: /etc/hosts
+      regexp: '^127\.0\.0\.1\s.*{{ ansible_hostname }}'
+      line: '127.0.0.1  localhost'
+      owner: root
+      group: root
+      mode: 0644
 
-    - debug:
-        msg: "SWPM: {{ sap_swpm_sapinst_path }}\n HANA system PW: {{sap_swpm_db_system_password}} \n SWPM master PW {{sap_swpm_master_password }} \n 
-        sap_install_media_detect_source_directory: {{ sap_install_media_detect_source_directory}} \n CAtalog ID: {{ sap_swpm_product_catalog_id }} \n SAP APP SID: {{sap_swpm_sid}}\n ASCS {{ sap_swpm_ascs_instance_nr }} \n 
-        HANA Host {{ sap_swpm_db_host}}\ \n pas instance number {{ sap_swpm_pas_instance_nr}} \n SAP HANA SID {{ sap_hana_install_sid }} \n SAP HANA Nr {{ sap_swpm_db_instance_nr }} \n "
+  - name: SAP SWPM - Create /etc/hosts entry for {{ ansible_hostname }}
+    lineinfile:
+      path: /etc/hosts
+      regexp: '.*\b{{ ansible_hostname }}\b.*'
+      line: '{{  ansible_default_ipv4.address }}        {{ ansible_hostname }}.{{ ansible_domain }}  {{ ansible_hostname }}'
+      owner: root
+      group: root
+      mode: 0644
