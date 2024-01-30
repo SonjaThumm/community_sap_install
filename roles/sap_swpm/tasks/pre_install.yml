@@ -40,6 +40,24 @@
 
 # /etc/hosts
 
+- name: SAP SWPM - Correct /etc/hosts entry for 127.0.0.1
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1\s.*{{ ansible_hostname }}'
+    line: '127.0.0.1  localhost'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: SAP SWPM - Create /etc/hosts entry for {{ ansible_hostname }}
+  lineinfile:
+    path: /etc/hosts
+    regexp: '.*\b{{ ansible_hostname }}\b.*'
+    line: '{{  ansible_default_ipv4.address }}        {{ ansible_hostname }}.{{ ansible_domain }}  {{ ansible_hostname }}'
+    owner: root
+    group: root
+    mode: 0644
+
 - name: SAP SWPM Pre Install - Update /etc/hosts
   ansible.builtin.include_tasks:
     file: pre_install/update_etchosts.yml
