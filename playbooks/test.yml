@@ -1,27 +1,71 @@
 ---
-# Ansible Playbook for testing parameter input
+# Ansible Playbook for executing sap_swpm Ansible in "Default Mode"
+
 - name: Ansible Play for executing SAP SWPM to all hosts in Ansible Inventory
   hosts: all
   become: true
 
-  vars:
-    sap_swpm_ansible_role_mode: default
+### Deprecated standard method, can fail to detect process exit (e.g. hang errors with SAP SWPM 2.0 SP11)
+### Detect changed when using 'SAPinst build information' from beginning of stdout
+### Or detect changed when using instslana.xml at end of stdout (this is the Process XML file aka. SAPInst Software Logistics Toolset Analytics XML file, which records the installation information)
+### Execute SAP SWPM, instead of command module use the shell module to allow use of umask according to SAP SWPM recommendations
+### Use of umask will enforce permissions 755 in /usr/sap etc (thereby resolving any shared NFS mount points initially attached with permissions 777)
+#- name:  SAP SWPM - {{ sap_swpm_swpm_installation_header }}
+#  ansible.builtin.shell: >-
+#    umask {{ sap_swpm_umask | default('022') }};
+#    ./sapinst \
+#    {{ sap_swpm_swpm_command_inifile }} \
+#    {{ sap_swpm_swpm_command_product_id }} \
+#    {{ sap_swpm_swpm_command_extra_args }}
+#  register: __sap_swpm_register_sapinst
+#  args:
+#    chdir: "{{ sap_swpm_sapinst_path }}"
+#  failed_when: __sap_swpm_register_sapinst is failed
+#  changed_when: "'SAPinst build information' in __sap_swpm_register_sapinst.stdout"
+##  changed_when: "'instslana' in __sap_swpm_register_sapinst.stdout"
 
   tasks:
-  - name: SAP SWPM - Correct /etc/hosts entry for 127.0.0.1
-    lineinfile:
-      path: /etc/hosts
-      regexp: '^127\.0\.0\.1\s.*{{ ansible_hostname }}'
-      line: '127.0.0.1  localhost'
-      owner: root
-      group: root
-      mode: 0644
+  - name: Set fact for the sapinst command line
+    ansible.builtin.set_fact:
+      __sap_swpm_sapinst_command: "sh /tmp/test.sh"
 
-  - name: SAP SWPM - Create /etc/hosts entry for {{ ansible_hostname }}
-    lineinfile:
-      path: /etc/hosts
-      regexp: '.*\b{{ ansible_hostname }}\b.*'
-      line: '{{  ansible_default_ipv4.address }}        {{ ansible_hostname }}.{{ ansible_domain }}  {{ ansible_hostname }}'
-      owner: root
-      group: root
-      mode: 0644
+# Call sapinst synchronously
+# Reason for noqa: This command installs software, so it will change things
+# - name: SAP SWPM - {{ sap_swpm_swpm_installation_header }} # noqa no-changed-when
+#   ansible.builtin.command: "{{ __sap_swpm_sapinst_command }}"
+#   register: __sap_swpm_register_sapinst
+#   args:
+#     chdir: "{{ sap_swpm_sapinst_path }}"
+
+# Execute SAP SWPM, instead of command module use the shell module to allow use of umask according to SAP SWPM recommendations
+# Use of umask will enforce permissions 755 in /usr/sap etc (thereby resolving any shared NFS mount points initially attached with permissions 777)
+# Reason for noqa: This command installs software, so it will change things
+  - name: SAP SWPM - {{ __sap_swpm_sapinst_command }} # noqa no-changed-when
+    ansible.builtin.shell: |
+      {{ __sap_swpm_sapinst_command }}
+    register: __sap_swpm_register_sapinst_async_job
+    async: 32400 # Seconds for maximum runtime, set to 9 hours
+    poll: 0 # Seconds between polls, use 0 to run Ansible Tasks concurrently
+
+# Monitor sapinst process (i.e. ps aux | grep sapinst) and wait for exit
+#  - name: SAP SWPM - Wait for sapinst process to exit, poll every 60 seconds
+#    community.general.pids:
+#      pattern: "{{ __sap_swpm_sapinst_command }}"
+      #    name: sapinst
+#  shell: ps -ef | awk '/sapinst/&&!/awk/&&!/ansible/{print}'
+#    register: pids_sapinst
+      #    until: "pids_sapinst.pids | length == 0"
+#  until: "pids_sapinst.stdout | length == 0"
+#    retries: 10
+#    delay: 60
+#  - debug:
+#      msg: "pids: {{ pids_sapinst }}"
+
+  - name: SAP SWPM - Verify if sapinst process finished successfully
+    ansible.builtin.async_status:
+      jid: "{{ __sap_swpm_register_sapinst_async_job.ansible_job_id }}"
+    register: __sap_swpm_register_sapinst
+    failed_when: __sap_swpm_register_sapinst.finished != 1 or __sap_swpm_register_sapinst.rc != 0
+#   #until: __sap_swpm_register_sapinst.finished
+#   #retries: 1000
+#   #delay: 60
