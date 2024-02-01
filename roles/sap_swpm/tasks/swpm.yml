@@ -52,7 +52,8 @@
 # Call sapinst synchronously
 # Reason for noqa: This command installs software, so it will change things
 - name: SAP SWPM - {{ sap_swpm_swpm_installation_header }} # noqa no-changed-when
-  ansible.builtin.command: "{{ __sap_swpm_sapinst_command }}"
+  ansible.builtin.shell: | 
+    {{ __sap_swpm_sapinst_command }}
   register: __sap_swpm_register_sapinst
   args:
     chdir: "{{ sap_swpm_sapinst_path }}"
