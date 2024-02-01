@@ -51,11 +51,11 @@
 
 # Call sapinst synchronously
 # Reason for noqa: This command installs software, so it will change things
- - name: SAP SWPM - {{ sap_swpm_swpm_installation_header }} # noqa no-changed-when
-   ansible.builtin.command: "{{ __sap_swpm_sapinst_command }}"
-   register: __sap_swpm_register_sapinst
-   args:
-     chdir: "{{ sap_swpm_sapinst_path }}"
+- name: SAP SWPM - {{ sap_swpm_swpm_installation_header }} # noqa no-changed-when
+  ansible.builtin.command: "{{ __sap_swpm_sapinst_command }}"
+  register: __sap_swpm_register_sapinst
+  args:
+    chdir: "{{ sap_swpm_sapinst_path }}"
 
 # Execute SAP SWPM, instead of command module use the shell module to allow use of umask according to SAP SWPM recommendations
 # Use of umask will enforce permissions 755 in /usr/sap etc (thereby resolving any shared NFS mount points initially attached with permissions 777)
