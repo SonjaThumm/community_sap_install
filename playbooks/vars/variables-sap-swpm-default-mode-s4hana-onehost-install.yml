@@ -13,6 +13,8 @@ sap_install_media_detect_db: "saphana"
 # Product ID for New Installation
 #sap_swpm_product_catalog_id: 
 
+sap_swpm_update_etchosts: true
+
 # Generate inifile.params using sap_swpm Ansible Role
 sap_swpm_inifile_list:
   - swpm_installation_media
