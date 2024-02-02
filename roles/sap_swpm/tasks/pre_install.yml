@@ -55,7 +55,7 @@
     file: pre_install/update_etchosts.yml
     apply:
       tags: sap_swpm_update_etchosts
- # when: "sap_swpm_update_etchosts | bool"
+  when: "sap_swpm_update_etchosts | bool"
   tags: sap_swpm_update_etchosts
 
 ################
