@@ -9,5 +9,5 @@
 
   tasks:
   - debug:
-      msg: "Ansible FQDN: {{ ansible_fqdn }}, Ansible hostname: {{ ansible_hostname }}"
+      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}"
 
