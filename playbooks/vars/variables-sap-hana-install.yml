@@ -13,11 +13,11 @@ sap_hana_install_configfile_directory: /hana/configfile
 
 
 # Master password
-sap_hana_install_master_password: 'HP1nv3nt'
+# sap_hana_install_master_password: 
 
 # Instance details
-sap_hana_install_sid: 'HDB'
-sap_hana_install_instance_nr: "00"
+# sap_hana_install_sid: 
+# sap_hana_install_instance_nr: 
 
 
 # ----------------------------- Optional parameters ------------------------------  #
