@@ -7,7 +7,7 @@
 #   2.  IMDB_*SAR files for all components you wish to install
 #   3.  SAPCAR executable
 #sap_hana_install_software_directory: /software/hana 
-sap_hana_install_software_extract_directory: /swdepot/S4HANA2023/SAP_HANA
+#sap_hana_install_software_extract_directory: /swdepot/S4HANA2023/SAP_HANA
 #sap_hana_install_software_extract_directory: /software/hana/extracted
 sap_hana_install_configfile_directory: /hana/configfile
 
