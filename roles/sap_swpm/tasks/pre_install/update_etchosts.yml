@@ -1,7 +1,9 @@
 ---
 
 # Update etc hosts for NW
-
+- debug:
+    msg: "Debugging fqdn: {{ sap_swpm_fqdn }}"
+  
 - name: SAP SWPM Pre Install - Display warning message if '/etc/hosts' is not configured for NW due to missing 'sap_swpm_fqdn'
   ansible.builtin.debug:
     msg: "WARN: Not configuring NW entries in '/etc/hosts' because 'sap_swpm_fqdn' is not defined!"
@@ -16,7 +18,7 @@
     - "sap_swpm_fqdn | type_debug != 'NoneType'"
     - "sap_swpm_fqdn | length > 0"
   block:
-
+   
     - name: SAP SWPM Pre Install - Deduplicate values from '/etc/hosts'
       ansible.builtin.lineinfile:
         path: /etc/hosts
