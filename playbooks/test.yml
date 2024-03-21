@@ -68,6 +68,10 @@
       - sap_swpm_db_host != ansible_hostname
       - sap_swpm_db_ip is not defined
      # - (sap_swpm_db_ip is not defined) or (( sap_swpm_db_ip is defined) and ((sap_swpm_db_ip | type_debug == 'NoneType') or (sap_swpm_db_ip | length == 0))
+
+  - name: SAP SWPM Pre Install - Show IP'
+    ansible.builtin.debug:
+      msg: "sap_swpm_db_ip: {{ sap_swpm_db_ip }} on host {{ sap_swpm_db_host }}"
              
   - name: SAP SWPM Pre Install - Display warning message if '/etc/hosts' is not configured for HANA due to missing 'sap_swpm_db_ip'
     ansible.builtin.debug:
