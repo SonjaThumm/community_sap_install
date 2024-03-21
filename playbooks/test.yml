@@ -10,7 +10,7 @@
   tasks:
   - name: Debug
     ansible.builtin.debug:
-      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}"
+      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}"
   - set_fact:
       sap_swpm_fqdn: "{{ ansible_domain }}"
 ##
@@ -59,7 +59,10 @@
         ansible.builtin.lineinfile:
           path: /etc/hosts
           line: "{{ ansible_default_ipv4.address | d(ansible_all_ipv4_addresses[0]) }}\t{{ ansible_hostname }}.{{ sap_swpm_fqdn }}\t{{ ansible_hostname }}"
-
+  - name: Get IP adress from SAP HANA host
+    set_fact:
+      sap_hana_host_ip: "{{  ansible_default_ipv4.address }}"
+    delegate_to: "{{ sap_swpm_db_host }}"
   - name: Get IP adress from SAP HANA host
     set_fact:
       sap_swpm_db_ip: "{{  ansible_default_ipv4.address }}"   
@@ -71,7 +74,7 @@
 
   - name: SAP SWPM Pre Install - Show IP'
     ansible.builtin.debug:
-      msg: "sap_swpm_db_ip: {{ sap_swpm_db_ip }} on host {{ sap_swpm_db_host }}"
+      msg: "sap_swpm_db_ip: {{ sap_swpm_db_ip }} on host {{ sap_swpm_db_host }},sap_hana_host_ip {{ sap_hana_host_ip }} "
              
   - name: SAP SWPM Pre Install - Display warning message if '/etc/hosts' is not configured for HANA due to missing 'sap_swpm_db_ip'
     ansible.builtin.debug:
