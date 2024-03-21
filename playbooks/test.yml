@@ -11,3 +11,15 @@
   - debug:
       msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}"
 
+  - name: Get IP adress from SAP HANA host
+    set_fact:
+      sap_hana_host_ip: "{{  ansible_default_ipv4.address }}"
+    delegate_to: "{{ sap_swpm_db_host }}"
+
+  - name: Set virtual hana hostname in /etc/hosts
+    lineinfile:
+      path: /etc/hosts
+      line: '{{  sap_hana_host_ip }}        {{ sap_swpm_db_host }}.{{ ansible_domain }}  {{ sap_swpm_db_host }}'
+      owner: root
+      group: root
+      mode: 0644
