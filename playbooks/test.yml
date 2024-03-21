@@ -46,7 +46,7 @@
       - "sap_swpm_fqdn | type_debug != 'NoneType'"
       - "sap_swpm_fqdn | length > 0"
     block:
-    - name: SAP SWPM Pre Install - Deduplicate values from '/etc/hosts'
+      - name: SAP SWPM Pre Install - Deduplicate values from '/etc/hosts'
         ansible.builtin.lineinfile:
           path: /etc/hosts
           create: false
