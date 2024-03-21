@@ -62,11 +62,11 @@
 
   - name: Get IP adress from SAP HANA host
     set_fact:
-      sap_swpm_db_ip: "{{  ansible_default_ipv4.address }}"
-    delegate_to: "{{ sap_swpm_db_host }}"
+      sap_swpm_db_ip: "{{  ansible_default_ipv4.address }}"   
     when:  
       - sap_swpm_db_host != ansible_hostname
       - sap_swpm_db_ip is not defined
+    delegate_to: "{{ sap_swpm_db_host }}"  
      # - (sap_swpm_db_ip is not defined) or (( sap_swpm_db_ip is defined) and ((sap_swpm_db_ip | type_debug == 'NoneType') or (sap_swpm_db_ip | length == 0))
 
   - name: SAP SWPM Pre Install - Show IP'
