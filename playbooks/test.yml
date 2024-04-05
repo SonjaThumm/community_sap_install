@@ -9,14 +9,16 @@
 
   tasks:
   - set_fact:
-      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') | replace(',','') | list }}"
+      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') | replace(',','') }}"
+      ip_array: "{{ ip_list_short.split(',') }}"
+      ip_length: "{{  ip_array | length }}"
   - name: Debug
     ansible.builtin.debug:
-      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_list_short }}"
+      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_array }}"
   - name: with_items
     ansible.builtin.debug:
-      msg: "Runde {{ item }}"
-    with_items: "{{ ip_list_short }}"
+      msg: "Runde {{ item }}, Laenge: {{ ip_length }}"
+    with_items: "{{ ip_array }}"
 
  # - set_fact:
  #     sap_swpm_fqdn: "{{ ansible_domain }}"
