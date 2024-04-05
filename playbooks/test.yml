@@ -7,14 +7,14 @@
 
   tasks:
   - set_fact:
-      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') | replace(',','') }}"
+      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') }}"
   - set_fact:
       ip_array: "{{ ip_list_short.split(',') }}"
   - set_fact:
       ip_length: "{{  ip_array | length }}"
   - name: Debug
     ansible.builtin.debug:
-      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_array }}"
+      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_list_short }}"
   - name: with_items
     ansible.builtin.debug:
       msg: "Runde {{ item }}, Laenge: {{ ip_length }}"
