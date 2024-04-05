@@ -18,7 +18,7 @@
   - name: with_items
     ansible.builtin.debug:
       msg: "Runde  {{ ip_list_short[index] }}, Laenge: {{ ip_length }} "
-    loop: "{{ ip_list_short|flatten(levels=1) }}"
+    loop: "{{ ip_array }}"
     loop_control:
       index_var: index
 
