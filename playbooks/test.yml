@@ -15,13 +15,15 @@
   - name: Debug
     ansible.builtin.debug:
       msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_list_short }}"
-  - name: with_items
+#  - name: with_items
+#    ansible.builtin.debug:
+#      msg: "Runde  {{ ip_list_short[index] }}, Laenge: {{ ip_length }} "
+#    loop: "{{ ip_array }}"
+#    loop_control:
+#      index_var: index
+  - name: Debug
     ansible.builtin.debug:
-      msg: "Runde  {{ ip_list_short[index] }}, Laenge: {{ ip_length }} "
-    loop: "{{ ip_array }}"
-    loop_control:
-      index_var: index
-
+      msg: " 1: {{ ip_list_short[0] }} 2 {{ ip_list_short[1] }} 3 {{ ip_list_short[2] }}"
  # - set_fact:
  #     sap_swpm_fqdn: "{{ ansible_domain }}"
 
