@@ -17,10 +17,10 @@
       msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_list_short }}"
   - name: with_items
     ansible.builtin.debug:
-      msg: "Runde  {{ ansible_loop.index0 }} {{ ip_list_short[0] }}, Laenge: {{ ip_length }} "
-    loop_control:
-        extended: true
-        loop_var: ip_list_short 
+      msg: "Runde  {{ ip_list_short[index] }}, Laenge: {{ ip_length }} "
+     loop: "{{ ip_list_short|flatten(levels=1) }}"
+     loop_control:
+       index_var: index
 
  # - set_fact:
  #     sap_swpm_fqdn: "{{ ansible_domain }}"
