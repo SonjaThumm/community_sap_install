@@ -18,9 +18,9 @@
   - name: with_items
     ansible.builtin.debug:
       msg: "Runde  {{ ip_list_short[index] }}, Laenge: {{ ip_length }} "
-     loop: "{{ ip_list_short|flatten(levels=1) }}"
-     loop_control:
-       index_var: index
+    loop: "{{ ip_list_short|flatten(levels=1) }}"
+    loop_control:
+      index_var: index
 
  # - set_fact:
  #     sap_swpm_fqdn: "{{ ansible_domain }}"
