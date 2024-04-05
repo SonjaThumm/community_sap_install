@@ -5,11 +5,10 @@
   hosts: all
   become: true
 
-
-
   tasks:
   - set_fact:
       ip_list_short: "{{ ip_list | replace('[','') | replace(']','') | replace(',','') }}"
+  - set_fact:
       ip_array: "{{ ip_list_short.split(',') }}"
       ip_length: "{{  ip_array | length }}"
   - name: Debug
