@@ -9,7 +9,7 @@
 
   tasks:
   - set_fact:
-      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') | replace(',','') }}"
+      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') | replace(',','') | list }}"
   - name: Debug
     ansible.builtin.debug:
       msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_list_short }}"
