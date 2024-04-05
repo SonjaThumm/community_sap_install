@@ -16,11 +16,11 @@
 #      ip_length: "{{  ip_array | length }}"
   - name: Debug
     ansible.builtin.debug:
-      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}"
+      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
 
   - name: with_items
     ansible.builtin.debug:
-      msg: "Runde {{ index}}:  {{ ip_array[index] }} {{ hostname_list_short[index]}}.{{ ansible_domain }} {{ hostname_list_short[index]}}"
+      msg: "Runde {{ index}}:  {{ ip_array[index] }} {{ hostname_array[index]}}.{{ ansible_domain }} {{ hostname_array[index]}}"
     loop: "{{ hostname_array  }}"
     loop_control:
       index_var: index
