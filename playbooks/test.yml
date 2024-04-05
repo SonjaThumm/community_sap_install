@@ -10,13 +10,13 @@
   tasks:
   - name: Debug
     ansible.builtin.debug:
-      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}"
-  - set_fact:
-      sap_swpm_fqdn: "{{ ansible_domain }}"
+      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }}, IP list  {{ ip_list }}"
+ # - set_fact:
+ #     sap_swpm_fqdn: "{{ ansible_domain }}"
 
-  - name: Test file
-    shell: echo "Ich schreibe {{ ansible_default_ipv4.address}}" >> /tmp/test.log
-    delegate_to: "{{ sap_swpm_db_host }}"
+#  - name: Test file
+#    shell: echo "Ich schreibe {{ ansible_default_ipv4.address}}" >> /tmp/test.log
+#    delegate_to: "{{ sap_swpm_db_host }}"
 ##
 #  - name: Get IP adress from SAP HANA host
 #    set_fact:
