@@ -20,18 +20,25 @@
     loop_control:
       index_var: index
 
+#  - name: SAP SWPM NW GL Preinstall - Update '/etc/hosts' for connected hosts
+#    block:
+#      - name: SAP SWPM NW GL Preinstall - Deduplicate values from '/etc/hosts'
+#        ansible.builtin.lineinfile:
+#          path: /etc/hosts
+#          create: false
+#          regexp: (?i)^\s*{{ ip_array[index] }}\s+
+#          state: absent
+#      - name: SAP SWPM NW GL Preinstall - Update '/etc/hosts' with IP entry 
+#        ansible.builtin.lineinfile:
+#          path: /etc/hosts
+#          line: "{{ ip_array[index] }}\t{{ hostname_array[index]}}.{{ ansible_domain }}\t{{ hostname_array[index]}}"
+#    loop: "{{ hostname_array  }}"
+#    loop_control:
+#      index_var: index
   - name: SAP SWPM NW GL Preinstall - Update '/etc/hosts' for connected hosts
-    block:
-      - name: SAP SWPM NW GL Preinstall - Deduplicate values from '/etc/hosts'
-        ansible.builtin.lineinfile:
-          path: /etc/hosts
-          create: false
-          regexp: (?i)^\s*{{ ip_array[index] }}\s+
-          state: absent
-      - name: SAP SWPM NW GL Preinstall - Update '/etc/hosts' with IP entry 
-        ansible.builtin.lineinfile:
-          path: /etc/hosts
-          line: "{{ ip_array[index] }}\t{{ hostname_array[index]}}.{{ ansible_domain }}\t{{ hostname_array[index]}}"
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      line: "{{ ip_array[index] }}\t{{ hostname_array[index]}}.{{ ansible_domain }}\t{{ hostname_array[index]}}"
     loop: "{{ hostname_array  }}"
     loop_control:
       index_var: index
