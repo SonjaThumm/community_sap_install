@@ -33,14 +33,14 @@
         path: /etc/hosts
         line: "{{ ansible_default_ipv4.address | d(ansible_all_ipv4_addresses[0]) }}\t{{ ansible_hostname }}.{{ sap_swpm_fqdn }}\t{{ ansible_hostname }}"
 
-- name: Get IP adress from SAP HANA host
-  set_fact:
-    sap_swpm_db_ip: "{{  ansible_default_ipv4.address }}"
-  delegate_to: "{{ sap_swpm_db_host }}"
-  when:  
-    - sap_swpm_db_host != ansible_hostname
-    - (sap_swpm_db_ip | type_debug == 'NoneType') or
-      (sap_swpm_db_ip | length == 0)
+#- name: Get IP adress from SAP HANA host
+#  set_fact:
+#    sap_swpm_db_ip: "{{  ansible_default_ipv4.address }}"
+#  delegate_to: "{{ sap_swpm_db_host }}"
+#  when:  
+#    - sap_swpm_db_host != ansible_hostname
+#    - (sap_swpm_db_ip | type_debug == 'NoneType') or
+#      (sap_swpm_db_ip | length == 0)
      
 
 - name: SAP SWPM Pre Install - Display warning message if '/etc/hosts' is not configured for HANA due to missing 'sap_swpm_db_ip'
