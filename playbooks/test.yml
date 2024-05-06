@@ -15,6 +15,7 @@
 #  - set_fact:
 #      ip_length: "{{  ip_array | length }}"
   - name: Debug
+    ansible.builtin.debug:
       msg: "SAP HANA IP from task: {{sap_hana_ip }}"
   - name: Debug
     ansible.builtin.debug:
@@ -23,6 +24,7 @@
  # - set_fact:
  #     sap_hana_ip2: "{{ morpheus['customOptions']['SAP_HANA_IP'] }}"
  # - name: Debug
+ #   ansible.builtin.debug:
  #     msg: "SAP HANA IP from evars: {{sap_hana_ip2 }}"
 
 #  - name: with_items
