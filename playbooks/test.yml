@@ -26,9 +26,10 @@
 
   - name: Detect SAP HANA hostname from /etc/hosts
     shell:  grep {{sap_hana_ip }} /etc/hosts | cut -d ' ' -f 3
-    register: sap_hana_hostname
- 
-  - name: Debug
+    register: hostname_result
+  - set_fact:
+    sap_hana_hostname: "{{ hostname_result.stdout }}"
+   - name: Debug
     ansible.builtin.debug:
       msg: "SAP HANA Hostname from remote: {{sap_hana_hostname }}"
 #  - name: Debug
