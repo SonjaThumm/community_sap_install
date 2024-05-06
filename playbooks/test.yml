@@ -17,18 +17,20 @@
   - name: Debug
     ansible.builtin.debug:
       msg: "SAP HANA IP from task: {{sap_hana_ip }}"
-  - name: Debug
-    shell: hostname
-    register: sap_hana_hostname
-    delegate_to: "{{ sap_hana_ip }}"
-  - name: Debug
-    ansible.builtin.debug:
-      msg: "SAP HANA Hostname from remote: {{sap_hana_hostname }}"
+
   - set_fact:
       sap_hana_ip2: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
   - name: Debug
     ansible.builtin.debug:
       msg: "SAP HANA IP from evars: {{sap_hana_ip2 }}"
+
+  - name: Detect SAP HANA hostname from /etc/hosts
+    shell:  grep {{sap_hana_ip }} /etc/hosts | cut -d ' ' -f 3
+    register: sap_hana_hostname
+ 
+  - name: Debug
+    ansible.builtin.debug:
+      msg: "SAP HANA Hostname from remote: {{sap_hana_hostname }}"
 #  - name: Debug
 #    ansible.builtin.debug:
 #      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
