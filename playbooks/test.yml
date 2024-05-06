@@ -20,7 +20,7 @@
   - name: Debug
     ansible.builtin.debug:
       msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
-    delegate_to: {{ sap_hana_ip }}
+    delegate_to: "{{ sap_hana_ip }}"
   - set_fact:
       sap_hana_ip2: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
   - name: Debug
