@@ -29,7 +29,7 @@
     register: hostname_result
   - set_fact:
     sap_hana_hostname: "{{ hostname_result.stdout }}"
-   - name: Debug
+  - name: Debug
     ansible.builtin.debug:
       msg: "SAP HANA Hostname from remote: {{sap_hana_hostname }}"
 #  - name: Debug
