@@ -69,3 +69,16 @@
   ansible.builtin.debug:
     msg:
       - "SAP fqdn {{ sap_swpm_fqdn }}"
+# For SAP GreenLake 2-tier installation
+    - "sap_swpm_db_host | length > 0"
+    - "sap_swpm_db_host != ansible_hostname"
+ - name: Get HANA hostname from Landscape
+   block:
+   when: "sap_swpm_db_host | length < 0"
+     - set_fact:
+         sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
+     - name: Detect SAP HANA hostname from /etc/hosts
+       shell:  grep {{sap_hana_ip }} /etc/hosts | cut -d ' ' -f 3
+       register: result
+     - set_fact:
+         sap_swpm_db_host : "{{ result.stdout }}"
