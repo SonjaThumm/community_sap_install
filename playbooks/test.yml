@@ -19,7 +19,7 @@
       msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
     delegate_to: "{{ sap_hana_ip }}
 #  set_fact:
-#    sap_hana_ip2: "<%= evars.SAP_HANA_IP %>"
+#    sap_hana_ip2: "{{ morpheus['customOptions']['SAP_HANA_IP'] }}"
 #  - name: Debg
 #      msg: "SAP HANA IP from evars: {{sap_hana_ip2 }}"
 #  - name: with_items
