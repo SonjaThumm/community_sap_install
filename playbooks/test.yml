@@ -6,24 +6,28 @@
   become: true
 
   tasks:
-  - set_fact:
-      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') }}"
-      hostname_list_short: "{{ hostname_list | replace('[','') | replace(']','') }}"
-  - set_fact:
-      ip_array: "{{ ip_list_short.split(',') }}"
-      hostname_array: "{{ hostname_list_short.split(',') }}"
+#  - set_fact:
+#      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') }}"
+#      hostname_list_short: "{{ hostname_list | replace('[','') | replace(']','') }}"
+#  - set_fact:
+#      ip_array: "{{ ip_list_short.split(',') }}"
+#      hostname_array: "{{ hostname_list_short.split(',') }}"
 #  - set_fact:
 #      ip_length: "{{  ip_array | length }}"
   - name: Debug
     ansible.builtin.debug:
       msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
-
-  - name: with_items
-    ansible.builtin.debug:
-      msg: "Runde {{ index}}:  {{ ip_array[index] }} {{ hostname_array[index]}}.{{ ansible_domain }} {{ hostname_array[index]}}"
-    loop: "{{ hostname_array  }}"
-    loop_control:
-      index_var: index
+    delegate_to: "{{ sap_hana_ip }}
+  set_fact:
+    sap_hana_ip2: "<%= evars.SAP_HANA_IP %>"
+  - name: Debg
+      msg: "SAP HANA IP from evars: {{sap_hana_ip2 }}"
+#  - name: with_items
+#    ansible.builtin.debug:
+#      msg: "Runde {{ index}}:  {{ ip_array[index] }} {{ hostname_array[index]}}.{{ ansible_domain }} {{ hostname_array[index]}}"
+#    loop: "{{ hostname_array  }}"
+#    loop_control:
+#      index_var: index
 
 #  - name: Debug
 #    ansible.builtin.debug:
