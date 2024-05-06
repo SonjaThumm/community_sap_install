@@ -70,8 +70,6 @@
     msg:
       - "SAP fqdn {{ sap_swpm_fqdn }}"
 # For SAP GreenLake 2-tier installation
-    - "sap_swpm_db_host | length > 0"
-    - "sap_swpm_db_host != ansible_hostname"
 - name: Get HANA hostname from Landscape
   when: "sap_swpm_db_host | length < 0"
   block:
