@@ -14,10 +14,10 @@
 #      hostname_array: "{{ hostname_list_short.split(',') }}"
 #  - set_fact:
 #      ip_length: "{{  ip_array | length }}"
-  - name: Debug
-    ansible.builtin.debug:
-      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
-    delegate_to: "{{ sap_hana_ip }}
+#  - name: Debug
+#    ansible.builtin.debug:
+#      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
+#    delegate_to: "{{ sap_hana_ip }}
   set_fact:
     sap_hana_ip2: "<%= evars.SAP_HANA_IP %>"
   - name: Debg
