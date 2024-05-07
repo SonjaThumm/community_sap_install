@@ -1,6 +1,6 @@
 ---
 - debug:
-    msg: " Show SAP HANA host {{ sap_swpm_db_host }}"
+    msg: " Show SAP HANA host {{ sap_swpm_db_host | length}}"
   when: sap_swpm_db_host is defined
 
 # Create temporary directory
