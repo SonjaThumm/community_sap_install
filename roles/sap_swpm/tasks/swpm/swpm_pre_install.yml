@@ -1,11 +1,14 @@
 ---
 - debug:
-    msg: " Show SAP HANA host {{ sap_swpm_db_host | length}}"
-  when: sap_swpm_db_host is defined
+    msg: "Show SAP HANA host {{ sap_swpm_db_host }}"
+  when: (sap_swpm_db_host | type_debug == 'NoneType') or
+        (sap_swpm_db_host | length == 0)
+
 
 # Create temporary directory
 - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
-  when: sap_swpm_db_host is undefined
+  when: (sap_swpm_db_host | type_debug == 'NoneType') or
+        (sap_swpm_db_host | length == 0)
   block:
     - set_fact:
         sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
