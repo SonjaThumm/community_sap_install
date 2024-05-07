@@ -1,6 +1,7 @@
 ---
 - debug:
     msg: " Show SAP HANA host {{ sap_swpm_db_host }}"
+  when: sap_swpm_db_host is defined
 
 # Create temporary directory
 - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
