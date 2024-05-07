@@ -14,17 +14,20 @@
 #      hostname_array: "{{ hostname_list_short.split(',') }}"
 #  - set_fact:
 #      ip_length: "{{  ip_array | length }}"
+  - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
+    when: (sap_swpm_db_host | type_debug == 'NoneType') or
+          (sap_swpm_db_host | length == 0)
+    block:
+      - set_fact: SAP SWPM Pre Install - Get SAP HANA IP from morpheus environment
+          sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
+      - name: SAP SWPM Pre Install - Detect SAP HANA hostname from /etc/hosts
+        shell:  grep {{sap_hana_ip }} /etc/hosts | cut -d ' ' -f 3
+        register: result
+      - set_fact: SAP SWPM Pre Install - Set SAP HANA DB host {{ result.stdout }}
+          sap_swpm_db_host : "{{ result.stdout }}"
 
-  - set_fact:
-      sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
-  - name: Detect SAP HANA hostname from /etc/hosts
-    shell:  grep {{sap_hana_ip }} /etc/hosts | cut -d ' ' -f 3
-    register: result
-  - set_fact:
-      sap_hana_hostname: "{{ result.stdout }}"
-  - name: Debug
-    ansible.builtin.debug:
-      msg: "SAP HANA Hostname from remote: {{sap_hana_hostname }}"
+
+        
 #  - name: Debug
 #    ansible.builtin.debug:
 #      msg: "Ansible FQDN: {{ ansible_domain }}, Ansible hostname: {{ ansible_hostname }}, Ansible IP {{  ansible_default_ipv4.address }} "
