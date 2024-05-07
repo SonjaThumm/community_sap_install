@@ -1,7 +1,7 @@
 ---
 # Create temporary directory
 - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
-  when: sap_swpm_db_host not exists
+  when: (sap_swpm_db_host not exists) or (sap_swpm_db_host | length == 0)
   block:
     - set_fact:
         sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
