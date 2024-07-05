@@ -7,7 +7,7 @@
 
   tasks:
     - debug:
-         msg: "HANA hostname {{ sap_swpm_db_host }}"
+         msg: "Domain name {{ ansible_domain }}"
 #  - set_fact:
 #      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') }}"
 #      hostname_list_short: "{{ hostname_list | replace('[','') | replace(']','') }}"
