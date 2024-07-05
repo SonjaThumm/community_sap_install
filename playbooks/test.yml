@@ -6,7 +6,7 @@
   become: true
 
   tasks:
-    - debug
+    - debug:
          msg: "HANA hostname {{ sap_swpm_db_host }}"
 #  - set_fact:
 #      ip_list_short: "{{ ip_list | replace('[','') | replace(']','') }}"
