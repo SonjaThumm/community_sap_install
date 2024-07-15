@@ -1,6 +1,6 @@
 ---
 - set_fact:
-    sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] | default() }}"
+    sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] | default('') }}"
 
 - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
   when: 
