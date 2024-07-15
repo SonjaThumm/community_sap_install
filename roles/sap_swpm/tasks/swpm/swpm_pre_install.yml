@@ -1,12 +1,13 @@
 ---
+- set_fact:
+    sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] | default(omit) }}"
+
 - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
   when: 
     - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
-    - (morpheus['evars']['SAP_HANA_IP'] | length > 0 )
+    -  (sap_hana_ip | length > 0)
        
-  block:
-    - set_fact: 
-        sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] }}"
+  block:    
     - name: SAP SWPM Pre Install - Detect SAP HANA hostname from /etc/hosts
       shell:  grep {{sap_hana_ip }} /etc/hosts | cut -d ' ' -f 3
       register: result
