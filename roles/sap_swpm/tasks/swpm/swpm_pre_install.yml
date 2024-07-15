@@ -1,7 +1,8 @@
 ---
 - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
-  when: - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
-        -  (morpheus['evars']['SAP_HANA_IP'] | length > 0 )
+  when: 
+    - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
+    - (morpheus['evars']['SAP_HANA_IP'] | length > 0 )
        
   block:
     - set_fact: 
