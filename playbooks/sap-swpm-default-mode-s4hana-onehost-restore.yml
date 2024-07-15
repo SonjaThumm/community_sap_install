@@ -28,6 +28,9 @@
           #      ansible.builtin.include_role:
         #        name: { role: community.sap_install.sap_install_media_detect }
         #        name: { role: sap_install_media_detect }
+
+    - debug:
+        msg: "Ansible domain: { ansible_domain }"
     - name: Execute Ansible Role sap_swpm
       ansible.builtin.include_role:
         name: { role: sap_swpm }
