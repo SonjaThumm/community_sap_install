@@ -2,7 +2,7 @@
 - name: SAP SWPM Pre Install - Set fact for SAP HANA IP from Landscape
   ansible.builtin.set_fact:
     sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] | default('') }}"
-    sap_swpm_db_host: "Quark"
+    sap_swpm_db_host: "{{ ansible_hostname }}"
 - debug:
     msg: "sap_swpm_db_host: {{ sap_swpm_db_host }}"
 
