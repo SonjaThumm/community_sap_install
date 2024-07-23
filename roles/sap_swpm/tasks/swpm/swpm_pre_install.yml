@@ -13,15 +13,13 @@
       register: result
     - set_fact: 
         sap_swpm_db_host: "{{ result.stdout }}"
-- debug:
-    msg: "Datenbankhost: {{ sap_swpm_db_host }}"
 
 - name: SAP SWPM Pre Install - Set fact for SAP HANA Hostname
   ansible.builtin.set_fact:
     sap_swpm_db_host: "{{ ansible_hostname }}"
-#  when: 
-#    - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
-#    - (sap_hana_ip | length == 0) 
+  when: 
+    - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
+    - (sap_hana_ip | length == 0) 
 
 - debug:
     msg: "sap_swpm_db_host: {{ sap_swpm_db_host }}, Ansible hostname:{{ ansible_hostname }}, SAP HANA IP length: {{ sap_hana_ip | length }} DB Host Length: {{ sap_swpm_db_host | length }}"
