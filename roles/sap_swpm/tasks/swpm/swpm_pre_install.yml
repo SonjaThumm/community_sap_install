@@ -14,7 +14,7 @@
         sap_swpm_db_host: "{{ result.stdout }}"
 
 - set_fact:
-    sap_swpm_db_host: "{{ ansible_hostname }}"
+    sap_swpm_db_host: Quark
   when:
     - (sap_hana_ip | length == 0)
     - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
