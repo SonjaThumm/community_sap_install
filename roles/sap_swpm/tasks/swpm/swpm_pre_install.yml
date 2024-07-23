@@ -18,6 +18,8 @@
   when:
     - (sap_hana_ip | length == 0)
     - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
+- debug:
+    msg: "swpm_db_host: {{ sap_swpm_db_host }}"
 
 # Create temporary directory        
 - name: SAP SWPM Pre Install - Create temporary directory
