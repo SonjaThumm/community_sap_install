@@ -11,10 +11,10 @@
       shell:  grep {{sap_hana_ip }} /etc/hosts | cut -d ' ' -f 3
       register: result
     - set_fact: 
-        sap_swpm_db_host : "{{ result.stdout }}"
+        sap_swpm_db_host: "{{ result.stdout }}"
 
 - set_fact:
-    sap_swpm_db_host : "{{ ansible_hostname }}"
+    sap_swpm_db_host: "{{ ansible_hostname }}"
   when:
     - (sap_hana_ip | length == 0)
     - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
