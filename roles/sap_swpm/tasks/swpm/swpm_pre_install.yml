@@ -2,10 +2,7 @@
 - name: SAP SWPM Pre Install - Set fact for SAP HANA IP from Landscape
   ansible.builtin.set_fact:
     sap_hana_ip: "{{ morpheus['evars']['SAP_HANA_IP'] | default('') }}"
-    sap_swpm_db_host2: "{{ ansible_hostname }}"
-- debug:
-    msg: "sap_swpm_db_host: {{ sap_swpm_db_host2 }}"
-
+  
 - name: SAP SWPM Pre Install - Get HANA hostname from Landscape
   when: 
     - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
@@ -18,12 +15,17 @@
         sap_swpm_db_host: "{{ result.stdout }}"
 - debug:
     msg: "sap_swpm_db_host: {{ sap_swpm_db_host }}"
-#- name: SAP SWPM Pre Install - Set fact for SAP HANA hostname on single host
-#  ansible.builtin.set_fact:
-#    sap_swpm_db_host: "Quark2"
-  #when:
-  #  - (sap_hana_ip | length == 0)
-  #  - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
+
+- name: SAP SWPM Pre Install - Set fact for SAP HANA Hostname
+  ansible.builtin.set_fact:
+    sap_swpm_db_host: "{{ ansible_hostname }}"
+  when: 
+    - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
+    - (sap_hana_ip | length == 0) 
+
+- debug:
+    msg: "sap_swpm_db_host: {{ sap_swpm_db_host }}"
+
 - debug:
     msg: "sap_swpm_db_host: {{ sap_swpm_db_host }}, Ansible hostname:{{ ansible_hostname }}, SAP HANA IP length: {{ sap_hana_ip | length }} DB Host Length: {{ sap_swpm_db_host | length }}"
 
