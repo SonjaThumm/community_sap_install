@@ -18,7 +18,7 @@
   ansible.builtin.set_fact:
     sap_swpm_db_host: "{{ ansible_hostname }}"
   when: 
-    - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0)
+    - (sap_swpm_db_host | type_debug == 'NoneType') or (sap_swpm_db_host | length == 0) or (sap_swpm_db_host == 'null')
     - (sap_hana_ip | length == 0) 
 
 - debug:
